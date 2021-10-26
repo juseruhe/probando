@@ -5,12 +5,14 @@ $(document).ready(function () {
            "url": "http://shielded-tundra-60402.herokuapp.com/api/tipo_documento",
            "dataSrc": "",
            "method": "GET",
+           "destroy": true,
         },
 
         columns: [
             {"data": "id"},
             {"data": "Nombre_Tipo_Documento"},
-            {"data": "Siglas"}
+            {"data": "Siglas"},
+            {"defaultContent": "<button class='btn btn-info'>Mostrar</button> <button class='btn btn-warning'>Editar </button> <button class='btn btn-danger'> Eliminar</button>    "}
         ],
 
        language: {
@@ -34,7 +36,7 @@ $(document).ready(function () {
         
     });
 
-    $('#insertar').click(function (e) { 
+    $('#datos').submit(function (e) { 
         e.preventDefault();
         
         $.ajax({
@@ -50,4 +52,47 @@ $(document).ready(function () {
             }
         });
     });
+
+    // Mostrar Tipo de Documento
+    $(document).on("click", ".btn-info", function () {
+        fila = $(this).closest("tr")
+        id= parseInt(fila.find('td:eq(0)').text())
+        //alert(id)
+
+        $.ajax({
+            type: "GET",
+            url: "http://shielded-tundra-60402.herokuapp.com/api/tipo_documento/"+id,
+            success: function (response) {
+                console.log(response)
+
+                $('.id').html(response.id);
+                $('.Nombre_Tipo_Documento').html(response.Nombre_Tipo_Documento)
+                $('.Siglas').html(response.Siglas)
+            }
+        });
+
+        $('.info').modal('show')
+
+    });
+    
+     /*$(document).on("click",'.btn-info', function () {
+         
+      fila = $(this).closest("tr")
+       id= parseInt(fila.find('td:eq(0)').text())
+     
+       $.ajax({
+           type: "GET",
+           url: "http://shielded-tundra-60402.herokuapp.com/api/tipo_documento/"+id,
+           dataSrc: "",
+           success: function (response) {
+               console.log(response)
+
+               $('.id').html(response.id)
+               $('.Nombre_Tipo_Documento').html(response.Nombre_Tipo_Documento)
+               $('.Siglas').html(response.Siglas)
+          }
+       });
+  
+      $('.info').modal('show')
+    });*/
 });

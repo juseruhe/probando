@@ -16,18 +16,22 @@
         <div class="col-lg-2"></div>
         <div class="col-lg-8">
       @include('tabla.crear')
+      @include('tabla.mostrar')
     <table class="table table-info" id="tabla">
         <thead>
           <tr>
             <th scope="col">#</th>
             <th scope="col">Tipo de Documentos</th>
             <th scope="col">Siglas</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         </table>
       </div>
     <div class="col-lg-2"></div>
     </div>
+  
+    
      <!-- JQuery -->
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     
