@@ -75,24 +75,62 @@ $(document).ready(function () {
 
     });
     
-     /*$(document).on("click",'.btn-info', function () {
-         
-      fila = $(this).closest("tr")
-       id= parseInt(fila.find('td:eq(0)').text())
-     
-       $.ajax({
-           type: "GET",
-           url: "http://shielded-tundra-60402.herokuapp.com/api/tipo_documento/"+id,
-           dataSrc: "",
-           success: function (response) {
-               console.log(response)
+    // Editar Tipo Documento
+    $(document).on("click", ".btn-warning",function () {
+        fila = $(this).closest('tr')
+        id = parseInt(fila.find('td:eq(0)').text())
+        nombre = fila.find('td:eq(1)').text()
+        siglas = fila.find('td:eq(2)').text()
 
-               $('.id').html(response.id)
-               $('.Nombre_Tipo_Documento').html(response.Nombre_Tipo_Documento)
-               $('.Siglas').html(response.Siglas)
-          }
-       });
+        $('.Nombre_Tipo_Documento').val(nombre)
+        $('.Siglas').val(siglas)
+
+        $('.editar').modal('show')
+
+         $('.datos').submit(function (e) { 
+             e.preventDefault();
+             
+             $.ajax({
+                 type: "put",
+                 url: "http://shielded-tundra-60402.herokuapp.com/api/tipo_documento/"+id,
+                 data: $('.datos').serialize(),
+                 success: function (response) {
+                     $('.mensaje').html('<div class="alert alert-success" role="alert">Datos Actualizados</div>')
+                 },
+                 error: function(error){
+                    $('.mensaje').html('<div class="alert alert-danger" role="alert">Error al Actualizar</div>')
+                 }
+             });
+         });
+    });
+   /* $(document).on("click", ".btn-warning", function () {
+        fila = $(this).closest("tr")
+        id = parseInt(fila.find('td:eq(0)').text())
+        nombre = fila.find('td:eq(1)').text()
+        siglas = fila.find('td:eq(2)').text()
+       
+
+        $('.id').html(id)
+        $('.Nombre_Tipo_Documento').val(nombre)
+        $('.Siglas').val(siglas)
+
+        $('.editar').modal("show")
+        });
+
+        $('.datos').submit(function (e) { 
+            e.preventDefault();
+            
+            $.ajax({
+                type: "put",
+                url: "http://shielded-tundra-60402.herokuapp.com/api/tipo_documento/"+id,
+                data: $('.datos').serialize(),
+                success: function (response) {
+                    alert("Datos Actualizados")
+                }
+            });
+        });*/
+
+    
   
-      $('.info').modal('show')
-    });*/
 });
+

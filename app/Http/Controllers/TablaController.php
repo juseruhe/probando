@@ -14,5 +14,9 @@ class TablaController extends Controller
     public function datatable(){
         return view('tabla.datatable');
     }
+
+    public function data(){
+        return view('data.index');
+    }
  
 }

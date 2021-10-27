@@ -29,3 +29,4 @@ Route::post('documento',[BotonesDinamicosController::class,'correoPdf'])->name('
 
 Route::get('tabla',[TablaController::class,'index'])->name('tabla.index');
 Route::get('datatable',[TablaController::class,'datatable'])->name('tabla.datatable');
+Route::get('data',[TablaController::class,'data'])->name('data.index');

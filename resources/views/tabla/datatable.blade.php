@@ -17,6 +17,7 @@
         <div class="col-lg-8">
       @include('tabla.crear')
       @include('tabla.mostrar')
+      @include('tabla.editar')
     <table class="table table-info" id="tabla">
         <thead>
           <tr>
