@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('#tabla').DataTable({
+   $('#tabla').DataTable({
        // Mostrar Datos Datatable
        ajax: {
            "url": "http://shielded-tundra-60402.herokuapp.com/api/tipo_documento",
@@ -24,10 +24,12 @@ $(document).ready(function () {
            "info": "Mostrando _END_ Tipos de Documentos",
            "infoFiltered": "",
            "zeroRecords": "No se ha encontrado níngun tipo de documento",
-           "infoEmpty": "Mostrando 0 tipos de documento"
-       } 
+           "infoEmpty": "Mostrando 0 tipos de documento",
+          },
+       
     })
 
+    
     // Crear Tipo Documento
     $('#crear').click(function (e) { 
         e.preventDefault();
@@ -103,34 +105,24 @@ $(document).ready(function () {
              });
          });
     });
-   /* $(document).on("click", ".btn-warning", function () {
+   
+    //Eliminar Tipo Documento
+    $(document).on("click", ".btn-danger",function () {
         fila = $(this).closest("tr")
-        id = parseInt(fila.find('td:eq(0)').text())
+        id= fila.find('td:eq(0)').text()
         nombre = fila.find('td:eq(1)').text()
-        siglas = fila.find('td:eq(2)').text()
-       
 
-        $('.id').html(id)
-        $('.Nombre_Tipo_Documento').val(nombre)
-        $('.Siglas').val(siglas)
-
-        $('.editar').modal("show")
-        });
-
-        $('.datos').submit(function (e) { 
-            e.preventDefault();
-            
+        if(confirm("¿Desea eliminar tipo documento "+nombre+" ?")){
             $.ajax({
-                type: "put",
+                type: "delete",
                 url: "http://shielded-tundra-60402.herokuapp.com/api/tipo_documento/"+id,
-                data: $('.datos').serialize(),
                 success: function (response) {
-                    alert("Datos Actualizados")
+                    alert("Eliminado tipo documento "+nombre)
                 }
             });
-        });*/
+        }
 
+    });
     
-  
 });
 
