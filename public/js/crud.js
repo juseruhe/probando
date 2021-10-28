@@ -12,7 +12,7 @@ $(document).ready(function () {
             {"data": "id"},
             {"data": "Nombre_Tipo_Documento"},
             {"data": "Siglas"},
-            {"defaultContent": "<button class='btn btn-info'><i class='bi bi-eye-fill'></i>  Mostrar</button> <button class='btn btn-warning'> <i class='bi bi-pencil-square'></i> Editar </button> <button class='btn btn-danger'><i class='bi bi-eraser-fill'></i> Eliminar</button>    "}
+            {"defaultContent": "<button class='btn btn-info'><i class='bi bi-eye-fill'></i> Mostrar</button> <button class='btn btn-warning'> <i class='bi bi-pencil-square'></i> Editar </button> <button class='btn btn-danger'><i class='bi bi-eraser-fill'></i> Eliminar</button>    "}
         ],
 
        language: {
@@ -47,11 +47,12 @@ $(document).ready(function () {
             data: $('#datos').serialize(),
             success: function (response) {
                 //alert("Datos insertados a la base datos")
-                $('#mensaje').html('<div class="alert alert-success" role="alert">  <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> Datos Enviados a la base de datos</div>');
+                $('#mensaje').html('<div class="alert alert-success" role="alert">Datos Enviados a la base de datos  <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> </div>');
+                $('#crearModal').modal('hide')
                 tabla.ajax.reload()
             }, 
             error: function(error){
-                $('#mensaje').html('<div class="alert alert-danger" role="alert">  <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> Error al enviar datos</div>');
+                $('#mensaje').html('<div class="alert alert-danger" role="alert">Error al enviar datos  <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
             }
         });
     });
@@ -90,6 +91,7 @@ $(document).ready(function () {
 
         $('.editar').modal('show')
 
+       
          $('.datos').submit(function (e) { 
              e.preventDefault();
              
@@ -98,14 +100,17 @@ $(document).ready(function () {
                  url: "http://shielded-tundra-60402.herokuapp.com/api/tipo_documento/"+id,
                  data: $('.datos').serialize(),
                  success: function (response) {
-                     $('#mensaje').html('<div class="alert alert-success" role="alert"> <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>Datos Actualizados</div>')
+                     $('#mensaje').html('<div class="alert alert-success" role="alert">Datos Actualizados <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>')
+                     $('.editar').modal('hide')
                      tabla.ajax.reload()
                  },
                  error: function(error){
-                    $('#mensaje').html('<div class="alert alert-danger" role="alert"> <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>Error al Actualizar</div>')
+                    $('#mensaje').html('<div class="alert alert-danger" role="alert">Error al Actualizar <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>')
                  }
              });
          });
+
+        
     });
    
     //Eliminar Tipo Documento
@@ -113,8 +118,9 @@ $(document).ready(function () {
         fila = $(this).closest("tr")
         id= fila.find('td:eq(0)').text()
         nombre = fila.find('td:eq(1)').text()
-
-        if(confirm("¿Desea eliminar tipo documento "+nombre+" ?")){
+        
+        // Si usa la alerta confirm  Opción 1
+        /*if(confirm("¿Desea eliminar tipo documento "+nombre+" ?")){
             $.ajax({
                 type: "delete",
                 url: "http://shielded-tundra-60402.herokuapp.com/api/tipo_documento/"+id,
@@ -125,8 +131,27 @@ $(document).ready(function () {
                     $('#mensaje').html('<div class="alert alert-warning" role="alert"> <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>Error al eliminar</div>')
                 }
             });
-        }
+        }*/
 
+        // Si usa un modal Opción 2
+        $('.nombre').html("¿Quieres Eliminar El tipo Documento "+nombre+"?")
+        $('#eliminarModal').modal('show')
+        
+        $('.btn-secondary').click(function (e) { 
+            e.preventDefault();
+            
+            $.ajax({
+                type: "delete",
+                url: "http://shielded-tundra-60402.herokuapp.com/api/tipo_documento/"+id,
+                success: function (response) {
+                    $('#mensaje').html('<div class="alert alert-danger" role="alert">Datos Eliminados Correctamente <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>')
+                    $('#eliminarModal').modal('hide')
+                    tabla.ajax.reload()
+                }, error: function(error){
+                    $('#mensaje').html('<div class="alert alert-warning" role="alert">Error al eliminar <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>')
+                }
+            });
+        });
     });
     
 });

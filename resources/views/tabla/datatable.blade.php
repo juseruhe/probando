@@ -28,6 +28,7 @@
       @include('tabla.crear')
       @include('tabla.mostrar')
       @include('tabla.editar')
+      @include('tabla.eliminar')
     <table class="table table-info" id="tabla">
         <thead>
           <tr>
