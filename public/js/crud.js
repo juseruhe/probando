@@ -1,5 +1,5 @@
 $(document).ready(function () {
-   $('#tabla').DataTable({
+  var tabla= $('#tabla').DataTable({
        // Mostrar Datos Datatable
        ajax: {
            "url": "http://shielded-tundra-60402.herokuapp.com/api/tipo_documento",
@@ -12,7 +12,7 @@ $(document).ready(function () {
             {"data": "id"},
             {"data": "Nombre_Tipo_Documento"},
             {"data": "Siglas"},
-            {"defaultContent": "<button class='btn btn-info'>Mostrar</button> <button class='btn btn-warning'>Editar </button> <button class='btn btn-danger'> Eliminar</button>    "}
+            {"defaultContent": "<button class='btn btn-info'><i class='bi bi-eye-fill'></i>  Mostrar</button> <button class='btn btn-warning'> <i class='bi bi-pencil-square'></i> Editar </button> <button class='btn btn-danger'><i class='bi bi-eraser-fill'></i> Eliminar</button>    "}
         ],
 
        language: {
@@ -47,10 +47,11 @@ $(document).ready(function () {
             data: $('#datos').serialize(),
             success: function (response) {
                 //alert("Datos insertados a la base datos")
-                $('#mensaje').html('<div class="alert alert-success" role="alert"> Datos Enviados a la base de datos</div>');
+                $('#mensaje').html('<div class="alert alert-success" role="alert">  <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> Datos Enviados a la base de datos</div>');
+                tabla.ajax.reload()
             }, 
             error: function(error){
-                $('#mensaje').html('<div class="alert alert-danger" role="alert"> Error al enviar datos</div>');
+                $('#mensaje').html('<div class="alert alert-danger" role="alert">  <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> Error al enviar datos</div>');
             }
         });
     });
@@ -97,10 +98,11 @@ $(document).ready(function () {
                  url: "http://shielded-tundra-60402.herokuapp.com/api/tipo_documento/"+id,
                  data: $('.datos').serialize(),
                  success: function (response) {
-                     $('.mensaje').html('<div class="alert alert-success" role="alert">Datos Actualizados</div>')
+                     $('#mensaje').html('<div class="alert alert-success" role="alert"> <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>Datos Actualizados</div>')
+                     tabla.ajax.reload()
                  },
                  error: function(error){
-                    $('.mensaje').html('<div class="alert alert-danger" role="alert">Error al Actualizar</div>')
+                    $('#mensaje').html('<div class="alert alert-danger" role="alert"> <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>Error al Actualizar</div>')
                  }
              });
          });
@@ -117,7 +119,10 @@ $(document).ready(function () {
                 type: "delete",
                 url: "http://shielded-tundra-60402.herokuapp.com/api/tipo_documento/"+id,
                 success: function (response) {
-                    alert("Eliminado tipo documento "+nombre)
+                    $('#mensaje').html('<div class="alert alert-danger" role="alert"> <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>Datos Eliminados Correctamente</div>')
+                    tabla.ajax.reload()
+                }, error: function(error){
+                    $('#mensaje').html('<div class="alert alert-warning" role="alert"> <button class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>Error al eliminar</div>')
                 }
             });
         }

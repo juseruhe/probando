@@ -1,10 +1,10 @@
-<button class="btn btn-success" id="crear">Insertar</button>
+<button class="btn btn-success" id="crear"><i class="bi bi-plus-lg"></i> Insertar</button>
 
 <div class="modal" tabindex="-1" id="crearModal">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-            <div id="mensaje"></div>
+            
             
           <h5 class="modal-title">Insertar Tipo de Documento</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

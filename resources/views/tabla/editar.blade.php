@@ -24,9 +24,6 @@
           <button  type="submit" class="btn btn-primary">Actualizar</button>
         </form>
         
-        <div class="form-control">
-        <div class="mensaje"></div>
-        </div>
         </div>
       </div>
     </div>
